@@ -1,0 +1,14 @@
+[
+  "trigger",
+  "./",
+  {
+    "name": "babel",
+    "expression": [
+      "anyof",
+      ["match", "src/**/*.js", "wholename"],
+      ["match", "src/**/*.jsx", "wholename"]
+    ],
+    "command": ["npm", "run-script", "build"],
+    "append_files": true
+  }
+]

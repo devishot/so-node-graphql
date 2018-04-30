@@ -1,0 +1,14 @@
+[
+  "trigger",
+  "./",
+  {
+    "name": "copy",
+    "expression": [
+      "anyof",
+      ["match", "src/**/*.sass", "wholename"],
+      ["match", "src/**/*.css",  "wholename"]
+    ],
+    "command": ["node", "./copy.js"],
+    "append_files": true
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "name": "so-node-graphql",
+  "version": "0.1.0",
+  "description": "Back-end fro SmartOffice-v3 on Node.js using GraphQL which in complaint with Relay",
+  "scripts": {
+    "start": "node lib/main.js",
+    "build": "babel src --out-dir lib --presets=env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devishot/so-node-graphql.git"
+  },
+  "author": "Sattar Stamkulov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devishot/so-node-graphql/issues"
+  },
+  "homepage": "https://github.com/devishot/so-node-graphql#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
