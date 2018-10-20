@@ -2,7 +2,7 @@
   "trigger",
   "./",
   {
-    "name": "babel",
+    "name": "so_node_project-babel-js-jsx",
     "expression": [
       "anyof",
       ["match", "src/**/*.js", "wholename"],

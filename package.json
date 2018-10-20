@@ -1,7 +1,7 @@
 {
   "name": "so-node-graphql",
   "version": "0.1.0",
-  "description": "Back-end fro SmartOffice-v3 on Node.js using GraphQL which in complaint with Relay",
+  "description": "Back-end for SmartOffice-v3 on Node.js using GraphQL which in complaint with Relay",
   "scripts": {
     "start": "node lib/main.js",
     "build": "babel src --out-dir lib --presets=env"
