@@ -10,7 +10,7 @@ export const queryType = new graphql.GraphQLObjectType({
       type: timeRecordType,
       // `args` describes the arguments that the `user` query accepts
       args: {
-        id: { type: graphql.GraphQLNonNull(graphql.GraphQLString) }
+        id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) }
       },
       resolve: (_, { id }) => getTimeRecordByID(id),
     }

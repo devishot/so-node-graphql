@@ -5,7 +5,7 @@ export const nodeInterface = new graphql.GraphQLInterfaceType({
   description: 'Relay Global Object Identification Specification',
   fields: () => ({
     id: {
-      type: graphql.GraphQLNonNull(graphql.GraphQLString),
+      type: graphql.GraphQLNonNull(graphql.GraphQLID),
       description: 'Object identification.',
     },
   })

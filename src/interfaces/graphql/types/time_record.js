@@ -6,7 +6,7 @@ import { getTimeRecordOwner } from '../resolvers';
 export const timeRecordType = new graphql.GraphQLObjectType({
   name: 'TimeRecord',
   fields: {
-    id: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+    id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) },
     amount: { type: graphql.GraphQLNonNull(graphql.GraphQLInt) },
     timestamp: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     description: { type: graphql.GraphQLString },
