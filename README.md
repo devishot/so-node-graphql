@@ -8,7 +8,7 @@
 ## GraphiQL
 
 1. query for TimeRecord by ID
-> http://localhost:4000/graphql?query=query%20TimeRecord(%24id%3A%20String!)%20%7B%0A%20%20timeRecord(id%3A%20%24id)%20%7B%0A%20%20%20%20id%0A%20%20%20%20amount%0A%20%20%20%20timestamp%0A%20%20%20%20description%0A%20%20%7D%0A%7D%0A&operationName=TimeRecord&variables=%7B%0A%20%20%22id%22%3A%20%22B58CC80A-1BF5-4652-9559-97AC6C6545AD%22%0A%7D
+> http://localhost:4000/graphql?query=query%20TimeRecord(%24id%3A%20ID!)%20%7B%0A%20%20timeRecord(id%3A%20%24id)%20%7B%0A%20%20%20%20id%0A%20%20%20%20amount%0A%20%20%20%20timestamp%0A%20%20%20%20description%0A%20%20%7D%0A%7D%0A&operationName=TimeRecord&variables=%7B%0A%20%20%22id%22%3A%20%22B58CC80A-1BF5-4652-9559-97AC6C6545AD%22%0A%7D
 
 
 ## Watchman
