@@ -1,7 +1,7 @@
 import * as graphql from 'graphql';
 
 import { nodeInterface } from './';
-import { getClientProjectsByClient, getClientProjectByID } from '../resolvers';
+import { getClientProjectsByClient } from '../resolvers';
 
 export const clientType = new graphql.GraphQLObjectType({
   name: 'Client',
@@ -13,9 +13,9 @@ export const clientType = new graphql.GraphQLObjectType({
     projects: {
       type: new graphql.GraphQLList(require('./client_project').clientProjectConnectionType),
       args: {
-        first: { type: graphql.GraphQLInt }, 
+        first: { type: graphql.GraphQLInt }, // Forward pagination arguments
         after: { type: graphql.GraphQLString }, 
-        last: { type: graphql.GraphQLInt }, 
+        last: { type: graphql.GraphQLInt },  // Backward pagination arguments
         before: { type: graphql.GraphQLString },
       },
       resolve: (client, { first, after, last, before }) => {

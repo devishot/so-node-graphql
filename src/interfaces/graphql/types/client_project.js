@@ -1,7 +1,7 @@
 import * as graphql from 'graphql';
 
-import { nodeInterface, connectionInterface, edgeInterface, pageInfo } from './';
-import { getClientByClientProject, getTimeRecordsByProject } from '../resolvers';
+import { connectionInterface, edgeInterface, pageInfo, nodeInterface } from './';
+import { getTimeRecordsByProject } from '../resolvers';
 
 export const clientProjectType = new graphql.GraphQLObjectType({
   name: 'Project',
@@ -17,18 +17,20 @@ export const clientProjectType = new graphql.GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-export const clientProjectConnectionType = new graphql.GraphQLObjectType({
-  fields: {
-    edges: { type: graphql.GraphQLList(clientProjectEdgeType) },
-    pageInfo: { type: graphql.GraphQLNonNull(pageInfo) },
-  },
-  interfaces: [connectionInterface],
-});
-
 export const clientProjectEdgeType = new graphql.GraphQLObjectType({
+  name: 'ProjectEdge',
   fields: {
     cursor: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     node: { type: graphql.GraphQLNonNull(clientProjectType) },
   },
   interfaces: [edgeInterface],
+});
+
+export const clientProjectConnectionType = new graphql.GraphQLObjectType({
+  name: 'ProjectConnection',
+  fields: {
+    edges: { type: new graphql.GraphQLList(clientProjectEdgeType) },
+    pageInfo: { type: graphql.GraphQLNonNull(pageInfo) },
+  },
+  interfaces: [connectionInterface],
 });

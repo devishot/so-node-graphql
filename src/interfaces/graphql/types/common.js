@@ -11,21 +11,6 @@ export const nodeInterface = new graphql.GraphQLInterfaceType({
   })
 });
 
-export const connectionInterface = new graphql.GraphQLInterfaceType({
-  name: 'Connection',
-  description: 'Interface of Relay Connection pattern for pagination',
-  fields: () => ({
-    edges: {
-      type: graphql.GraphQLList(edgeInterface),
-      description: 'This fields return a list type that wraps an edge type.',
-    },
-    pageInfo: {
-      type: graphql.GraphQLNonNull(pageInfo),
-      description: 'This field must return a non‐null PageInfo object.',
-    },
-  })
-});
-
 export const edgeInterface = new graphql.GraphQLInterfaceType({
   name: 'Edge',
   description: 'Interface of Relay Connection pattern for pagination',
@@ -48,4 +33,19 @@ export const pageInfo = new graphql.GraphQLObjectType({
     hasNextPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
     hasPreviousPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
   }
+});
+
+export const connectionInterface = new graphql.GraphQLInterfaceType({
+  name: 'Connection',
+  description: 'Interface of Relay Connection pattern for pagination',
+  fields: () => ({
+    edges: {
+      type: new graphql.GraphQLList(edgeInterface),
+      description: 'This fields return a list type that wraps an edge type.',
+    },
+    pageInfo: {
+      type: graphql.GraphQLNonNull(pageInfo),
+      description: 'This field must return a non‐null PageInfo object.',
+    },
+  })
 });
