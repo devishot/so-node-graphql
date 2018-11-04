@@ -1,14 +1,21 @@
 import * as graphql from 'graphql';
 
-import { timeRecordType } from '../types';
-import { getTimeRecordByID } from '../resolvers';
+import { timeRecordType, clientType } from '../types';
+import { getTimeRecordByID, getClientByID } from '../resolvers';
 
 export const queryType = new graphql.GraphQLObjectType({
   name: 'Query',
   fields: {
+    client: {
+      type: clientType,
+      args: {
+        id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) }
+      },
+      // resolver receive parameters: (client, args, context, info)
+      resolve: (_, { id }) => getClientByID(id)
+    },
     timeRecord: {
       type: timeRecordType,
-      // `args` describes the arguments that the `user` query accepts
       args: {
         id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) }
       },

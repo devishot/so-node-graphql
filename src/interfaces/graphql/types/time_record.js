@@ -1,6 +1,6 @@
 import * as graphql from 'graphql';
 
-import { nodeInterface, userType } from './';
+import { nodeInterface } from './';
 import { getTimeRecordOwner } from '../resolvers';
 
 export const timeRecordType = new graphql.GraphQLObjectType({
@@ -11,7 +11,7 @@ export const timeRecordType = new graphql.GraphQLObjectType({
     timestamp: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     description: { type: graphql.GraphQLString },
     owner: { 
-      type: graphql.GraphQLNonNull(userType),
+      type: graphql.GraphQLNonNull(require('./user').userType),
       resolve: timeRecord => getTimeRecordOwner(timeRecord),
     },
   },
