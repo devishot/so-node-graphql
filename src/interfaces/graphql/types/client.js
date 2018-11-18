@@ -11,7 +11,7 @@ export const clientType = new graphql.GraphQLObjectType({
     lastName: { type: graphql.GraphQLString },
     companyName: { type: graphql.GraphQLString },
     projects: {
-      type: new graphql.GraphQLList(require('./client_project').clientProjectConnectionType),
+      type: graphql.GraphQLNonNull(require('./client_project').clientProjectConnectionType),
       args: {
         first: { type: graphql.GraphQLInt }, // Forward pagination arguments
         after: { type: graphql.GraphQLString }, 
