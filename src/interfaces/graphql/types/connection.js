@@ -24,6 +24,14 @@ export const edgeInterface = new graphql.GraphQLInterfaceType({
     fields: {
       hasNextPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
       hasPreviousPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
+      startCursor: {
+        type: graphql.GraphQLNonNull(graphql.GraphQLString),
+        description: 'When paginating backwards, the cursor to continue.'
+      },
+      endCursor: {
+        type: graphql.GraphQLNonNull(graphql.GraphQLString),
+        description: 'When paginating forwards, the cursor to continue.'
+      },
     }
   });
   

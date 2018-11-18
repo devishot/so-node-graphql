@@ -1,6 +1,8 @@
 export let pageInfoSingle = {
     hasNextPage: false,
-    hasPreviousPage: false
+    hasPreviousPage: false,
+    endCursor: "",
+    startCursor: "",
 }
 
 export function getEdgeCursorByTimestamp(timestamp) {
