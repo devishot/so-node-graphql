@@ -3,7 +3,8 @@ export let pageInfoSingle = {
     hasPreviousPage: false
 }
 
-export function getEdgeCursor(uuid) {
-    let encoded = Buffer.from(uuid).toString('base64');
+export function getEdgeCursorByTimestamp(timestamp) {
+    let str = timestamp.toString();
+    let encoded = Buffer.from(str).toString('base64');
     return encoded
 }

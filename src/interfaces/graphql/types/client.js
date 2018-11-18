@@ -7,6 +7,7 @@ export const clientType = new graphql.GraphQLObjectType({
   name: 'Client',
   fields: {
     id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) },
+    timestamp: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     firstName: { type: graphql.GraphQLString },
     lastName: { type: graphql.GraphQLString },
     companyName: { type: graphql.GraphQLString },

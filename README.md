@@ -7,8 +7,9 @@
 
 ## GraphiQL
 
-1. query for TimeRecord by ID
-> http://localhost:4000/graphql?query=query%20TimeRecord(%24id%3A%20ID!)%20%7B%0A%20%20timeRecord(id%3A%20%24id)%20%7B%0A%20%20%20%20id%0A%20%20%20%20amount%0A%20%20%20%20timestamp%0A%20%20%20%20description%0A%20%20%7D%0A%7D%0A&operationName=TimeRecord&variables=%7B%0A%20%20%22id%22%3A%20%22B58CC80A-1BF5-4652-9559-97AC6C6545AD%22%0A%7D
+Examples:
+1. query for client with client projects pagination
+> http://localhost:4000/graphql?query=query%20ClientProjects(%24id%3A%20ID!)%20%7B%0A%20%20client(id%3A%20%24id)%20%7B%0A%20%20%20%20id%0A%20%20%20%20timestamp%0A%20%20%20%20firstName%0A%20%20%20%20lastName%0A%20%20%20%20companyName%0A%20%20%20%20projects(first%3A%2010%2C%20after%3A%20%22%22)%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20cursor%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20id%0A%20%20%20%20%20%20%20%20%20%20timestamp%0A%20%20%20%20%20%20%20%20%20%20title%0A%20%20%20%20%20%20%20%20%20%20description%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20pageInfo%20%7B%0A%20%20%20%20%20%20%20%20hasNextPage%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&operationName=ClientProjects&variables=%7B%0A%20%20%22id%22%3A%20%22B58CC80A-1BF5-4652-9559-97AC6C6545AD%22%0A%7D
 
 
 ## Watchman
@@ -33,6 +34,7 @@ Manually add every trigger:
 
 Logs:
 > cat /usr/local/var/run/watchman/`whoami`-state/log | tail -40
+
 (Check logs for compiling errors)
 
 Instruction:

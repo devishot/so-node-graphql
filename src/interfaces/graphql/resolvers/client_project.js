@@ -1,14 +1,17 @@
-import { pageInfoSingle, getEdgeCursor } from './';
+import { pageInfoSingle, getEdgeCursorByTimestamp } from './connection.js';
+import { normalizeTimestamp } from './common.js';
 
 
 let clientProjectMocks = [
   {
     id: "B58CC80A-1BF5-4652-9559-97AC6C6545AD",
+    timestamp: 1542112972570,
     title: "Project One",
     description: "mocked data from resolver"
   },
   {
     id: "0785340e-0f4e-4232-81a7-e7a5a23f3b25",
+    timestamp: 1542544909919,
     title: "Project Two",
     description: "from mocked list of projects"
   },
@@ -16,8 +19,8 @@ let clientProjectMocks = [
 
 function getClientProjectEdge(project) {
   return {
-    cursor: getEdgeCursor(project.id),
-    node: project
+    cursor: getEdgeCursorByTimestamp(project.timestamp),
+    node: normalizeTimestamp(project),
   }
 }
 
