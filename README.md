@@ -31,10 +31,9 @@ Manually add every trigger:
 
 > watchman -j < copyTrigger.json
 
-
 Logs:
-> cat /usr/local/var/run/watchman/macbookpro-state/log | tail -40
-
+> cat /usr/local/var/run/watchman/`whoami`-state/log | tail -40
+(Check logs for compiling errors)
 
 Instruction:
 https://medium.com/@aoc/simple-watchman-setup-ab006e97fb1d
