@@ -19,11 +19,14 @@ Triggers:
 1. Babel js and jsx files using `npm run-script build` command;
 2. Copy css and sass files into dist without any change.
 
+Install:
+> $ brew update
+> $ brew install watchman
 
-For run watchman:
+Run:
 > watchman watch-project .
 
-Then manually add every trigger:
+Manually add every trigger:
 > watchman -j < babelTrigger.json
 
 > watchman -j < copyTrigger.json
