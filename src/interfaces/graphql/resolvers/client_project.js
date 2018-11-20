@@ -1,8 +1,8 @@
 import { pageInfoSingle, getEdgeCursorByTimestamp } from './connection.js';
-import { normalizeTimestamp } from './common.js';
+import { normalizeTimestamp, generateRandomNumber } from './common.js';
 
 
-let clientProjectMocks = [
+var clientProjectMocks = [
   {
     id: "B58CC80A-1BF5-4652-9559-97AC6C6545AD",
     timestamp: 1542112972570,
@@ -38,8 +38,19 @@ export function getClientProjectsByClient(client, pageArgs) {
   return Promise.resolve(connection);
 }
 
-
 export function getClientProjectByID(id) {
   let project = clientProjectMocks.filter(project => project.id == id)[0]
+  return Promise.resolve(project);
+}
+
+export function addClientProjectToClient(clientID, input) {
+  let _uuid = clientID.slice(0, -3) + generateRandomNumber(100, 999);
+  let project = {
+    id: _uuid,
+    timestamp: Date.now(),
+    title: input.title,
+    description: input.description,
+  }
+  clientProjectMocks.push(project);
   return Promise.resolve(project);
 }

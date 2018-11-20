@@ -4,7 +4,8 @@
   "description": "Back-end for SmartOffice-v3 on Node.js using GraphQL which in complaint with Relay",
   "scripts": {
     "start": "node lib/main.js",
-    "build": "babel src --out-dir lib --presets=env"
+    "build": "babel src --out-dir lib --presets=env",
+    "logs": "cat /usr/local/var/run/watchman/`whoami`-state/log | tail -20"
   },
   "repository": {
     "type": "git",
