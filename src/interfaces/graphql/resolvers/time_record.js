@@ -1,12 +1,12 @@
 let timeRecordMocks = [
   {
-    id: "B58CC80A-1BF5-4652-9559-97AC6C6545AD",
+    id: "01088404-a472-4c04-8376-639b840bfbf3",
     timestamp: 1542552256440,
     amount: 60,
     description: "mocked data from resolver"
   },
   {
-    id: "0785340e-0f4e-4232-81a7-e7a5a23f3b25",
+    id: "c2091336-85cf-4052-9761-4368ed146915",
     timestamp: 1542545032318,
     amount: 15,
     description: "from mocked list of time records"

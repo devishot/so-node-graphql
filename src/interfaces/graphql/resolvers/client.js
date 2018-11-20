@@ -2,14 +2,14 @@ import { normalizeTimestamp } from './common.js';
 
 let clientMocks = [
   {
-    id: "B58CC80A-1BF5-4652-9559-97AC6C6545AD",
+    id: "c468d42e-e2d6-4f9a-9974-ba775a882514",
     timestamp: 1534596386637,
     firstName: "FirstName",
     lastName: "LastName",
     companyName: ""
   },
   {
-    id: "0785340e-0f4e-4232-81a7-e7a5a23f3b25",
+    id: "00c3c715-9c9f-49be-b336-6d661f2bf561",
     timestamp: 1518957975228,
     firstName: "Donald",
     lastName: "Trump",
