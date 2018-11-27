@@ -17,6 +17,7 @@ var clientProjectMocks = [
   },
 ]
 
+
 function getClientProjectEdge(project) {
   return {
     cursor: getEdgeCursorByTimestamp(project.timestamp),
@@ -31,6 +32,7 @@ function getClientProjectsConnection(pageInfo, projects) {
     pageInfo: pageInfo,
   }
 }
+
 
 export function getClientProjectsByClient(client, pageArgs) {
   let projects = clientProjectMocks;
@@ -52,5 +54,10 @@ export function addClientProjectToClient(clientID, input) {
     description: input.description,
   }
   clientProjectMocks.push(project);
-  return Promise.resolve(project);
+
+  let edge = getClientProjectEdge(project);
+  let payload = {
+    payloadEdge: edge
+  }
+  return Promise.resolve(payload);
 }
