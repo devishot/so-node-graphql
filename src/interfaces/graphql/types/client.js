@@ -14,13 +14,13 @@ export const clientType = new graphql.GraphQLObjectType({
     projects: {
       type: graphql.GraphQLNonNull(require('./client_project').clientProjectConnectionType),
       args: {
-        first: { type: graphql.GraphQLInt }, // Forward pagination arguments
-        after: { type: graphql.GraphQLString }, 
-        last: { type: graphql.GraphQLInt },  // Backward pagination arguments
+        first:  { type: graphql.GraphQLInt }, // Forward pagination arguments
+        after:  { type: graphql.GraphQLString }, 
+        last:   { type: graphql.GraphQLInt },  // Backward pagination arguments
         before: { type: graphql.GraphQLString },
       },
-      resolve: (client, { first, after, last, before }) => {
-        return getClientProjectsByClient(client, { first, after, last, before });
+      resolve: (client, argValues) => {
+        return getClientProjectsByClient(client, argValues);
       }
     },
   },

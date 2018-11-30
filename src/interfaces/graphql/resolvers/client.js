@@ -1,4 +1,4 @@
-import { normalizeTimestamp } from './common.js';
+import { normalizeTimestamp } from './';
 
 let clientMocks = [
   {

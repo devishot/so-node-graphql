@@ -1,5 +1,5 @@
-import { pageInfoSingle, getEdgeCursorByTimestamp } from './connection.js';
-import { normalizeTimestamp, generateRandomNumber } from './common.js';
+import { getForwardPageInfo, getEdgeCursorByTimestamp } from './_connection.js';
+import { normalizeTimestamp, generateRandomNumber } from './_common.js';
 
 
 var clientProjectMocks = [
@@ -25,8 +25,10 @@ function getClientProjectEdge(project) {
   }
 }
 
-function getClientProjectsConnection(pageInfo, projects) {
+function getClientProjectsConnection(projects, getPageInfo) {
   let edges = projects.map(p => getClientProjectEdge(p));
+  let pageInfo = getPageInfo(edges);
+
   return {
     edges: edges,
     pageInfo: pageInfo,
@@ -34,9 +36,10 @@ function getClientProjectsConnection(pageInfo, projects) {
 }
 
 
-export function getClientProjectsByClient(client, pageArgs) {
-  let projects = clientProjectMocks;
-  let connection = getClientProjectsConnection(pageInfoSingle, projects);
+export function getClientProjectsByClient(client, { first }) {
+  let total = clientProjectMocks.length;
+  let projects = clientProjectMocks.slice(0, first);
+  let connection = getClientProjectsConnection(projects, getForwardPageInfo(first)(total));
   return Promise.resolve(connection);
 }
 
