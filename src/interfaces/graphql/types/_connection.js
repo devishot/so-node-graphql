@@ -25,11 +25,11 @@ export const edgeInterface = new graphql.GraphQLInterfaceType({
       hasNextPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
       hasPreviousPage: { type: graphql.GraphQLNonNull(graphql.GraphQLBoolean) },
       startCursor: {
-        type: graphql.GraphQLNonNull(graphql.GraphQLString),
+        type: graphql.GraphQLString,
         description: 'When paginating backwards, the cursor to continue.'
       },
       endCursor: {
-        type: graphql.GraphQLNonNull(graphql.GraphQLString),
+        type: graphql.GraphQLString,
         description: 'When paginating forwards, the cursor to continue.'
       },
     }
@@ -40,7 +40,7 @@ export const edgeInterface = new graphql.GraphQLInterfaceType({
     description: 'Interface of Relay Connection pattern for pagination',
     fields: () => ({
       edges: {
-        type: new graphql.GraphQLList(edgeInterface),
+        type: graphql.GraphQLNonNull(new graphql.GraphQLList(edgeInterface)),
         description: 'This fields return a list type that wraps an edge type.',
       },
       pageInfo: {

@@ -32,7 +32,7 @@ export const clientProjectEdgeType = new graphql.GraphQLObjectType({
 export const clientProjectConnectionType = new graphql.GraphQLObjectType({
   name: 'ProjectConnection',
   fields: {
-    edges:    { type: new graphql.GraphQLList(clientProjectEdgeType) },
+    edges:    { type: graphql.GraphQLNonNull(new graphql.GraphQLList(clientProjectEdgeType)) },
     pageInfo: { type: graphql.GraphQLNonNull(pageInfo) },
   },
   interfaces: [connectionInterface],
