@@ -1,4 +1,10 @@
-import { getForwardPageInfo, getEdgeCursorByTimestamp } from './_connection.js';
+import { default as _ } from 'lodash';
+
+import { 
+  getForwardPageInfo, 
+  getEdgeCursorFromTimestamp, 
+  getTimestampFromEdgeCursor 
+} from './_connection.js';
 import { normalizeTimestamp, generateRandomNumber } from './_common.js';
 
 
@@ -17,29 +23,60 @@ var clientProjectMocks = [
   },
 ]
 
+let filterProjectsAfter = (cursor) => (projects) => {
+  if( !(typeof cursor === 'string' || cursor instanceof String) ){
+    return projects;
+  }
+  let afterTimestamp = getTimestampFromEdgeCursor(cursor);
+
+  return projects.filter(val => val.timestamp > afterTimestamp);
+}
+
+let sliceProjects = ({ first, last }) => (projects) => {
+  if( typeof first === 'number' || cursor instanceof Number ) {
+    return projects.slice(0, first);
+  } else {
+    let n = projects.length;
+    return projects.slice(n - last, n);
+  }
+}
+
+let makePageInfo = (slicedEdges) => (filteredProjects) => {
+  let hasMore = (filteredProjects.length - slicedEdges.length) > 0
+  return getForwardPageInfo(hasMore)(slicedEdges)
+}
+
 
 function getClientProjectEdge(project) {
   return {
-    cursor: getEdgeCursorByTimestamp(project.timestamp),
+    cursor: getEdgeCursorFromTimestamp(project.timestamp),
     node: normalizeTimestamp(project),
   }
 }
 
-function getClientProjectsConnection(projects, getPageInfo) {
-  let edges = projects.map(p => getClientProjectEdge(p));
-  let pageInfo = getPageInfo(edges);
-
+function getClientProjectsConnection(edges, pageInfo) {
   return {
     edges: edges,
     pageInfo: pageInfo,
   }
 }
 
+export function getClientProjectsByClient(client, { first, after }) {
+  let edges = _
+      .chain(clientProjectMocks)
+      .sortBy('timestamp')
+      .thru(filterProjectsAfter(after))
+      .thru(sliceProjects({ first }))
+      .map(getClientProjectEdge)
+      .value();
+  let pageInfo = _
+      .chain(clientProjectMocks)
+      .sortBy('timestamp')
+      .thru(filterProjectsAfter(after))
+      .thru(makePageInfo(edges))
+      .value();
 
-export function getClientProjectsByClient(client, { first }) {
-  let total = clientProjectMocks.length;
-  let projects = clientProjectMocks.slice(0, first);
-  let connection = getClientProjectsConnection(projects, getForwardPageInfo(first)(total));
+  let connection = getClientProjectsConnection(edges, pageInfo);
   return Promise.resolve(connection);
 }
 
