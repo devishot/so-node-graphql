@@ -2,10 +2,13 @@
   "name": "so-node-graphql",
   "version": "0.1.0",
   "description": "Back-end for SmartOffice-v3 on Node.js using GraphQL which in complaint with Relay",
+  "private": true,
   "scripts": {
-    "start": "node lib/main.js",
-    "build": "babel src --out-dir lib --presets=env",
-    "logs": "cat /usr/local/var/run/watchman/`whoami`-state/log | tail -20"
+    "build": "webpack --config dev.webpack.config.js",
+    "start": "node dist/server.js",
+    "start:nodemon": "nodemon dist/server.js",
+    "start:all": "npm-run-all -p start:nodemon watch",
+    "watch": "webpack --watch --config dev.webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.11",
+    "npm-run-all": "^4.1.5",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
   }
 }

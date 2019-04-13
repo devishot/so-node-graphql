@@ -3,13 +3,13 @@ import cors from 'cors';
 
 import { server } from './interfaces/graphql/server';
 
-const Port = 4000;
+const port = 8080,
+      app = express();
 
-var app = express();
 app.use(
   cors({
     'origin': '*',
   })
 )
 app.use('/graphql', server);
-app.listen(Port);
+app.listen(port);
