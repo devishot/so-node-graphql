@@ -1,4 +1,7 @@
-import { normalizeTimestamp } from './';
+import { 
+  normalizeTimestamp,
+  getEdgeCursorFromTimestamp
+ } from './';
 
 let clientMocks = [
   {
@@ -22,6 +25,19 @@ export function getClientByClientProject(project) {
 }
 
 export function getClientByID(id) {
-  let client = clientMocks.filter( client => client.id == id )[0]
+  const client = clientMocks.filter( client => client.id == id )[0];
+
   return Promise.resolve(normalizeTimestamp(client));
+}
+
+export function getClientConnection({ first, after, last, before }) {
+  const conn = {
+    edges: [],
+    pageInfo: {
+      hasNextPage: false,
+      startCursor: getEdgeCursorFromTimestamp(Date.now())
+    },
+  };
+
+  return Promise.resolve(conn);
 }

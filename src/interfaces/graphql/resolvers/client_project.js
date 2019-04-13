@@ -5,7 +5,10 @@ import {
   getEdgeCursorFromTimestamp, 
   getTimestampFromEdgeCursor 
 } from './_connection.js';
-import { normalizeTimestamp, generateRandomNumber } from './_common.js';
+import { 
+  normalizeTimestamp, 
+  generateRandomNumber 
+} from './_common.js';
 
 
 var clientProjectMocks = [
@@ -46,18 +49,17 @@ let makePageInfo = (slicedEdges) => (filteredProjects) => {
   return getForwardPageInfo(hasMore)(slicedEdges)
 }
 
-
-function getClientProjectEdge(project) {
-  return {
-    cursor: getEdgeCursorFromTimestamp(project.timestamp),
-    node: normalizeTimestamp(project),
-  }
-}
-
-function getClientProjectsConnection(edges, pageInfo) {
+const makeConnection = (edges, pageInfo) => {
   return {
     edges: edges,
     pageInfo: pageInfo,
+  }
+}
+
+function makeClientProjectEdge(project) {
+  return {
+    cursor: getEdgeCursorFromTimestamp(project.timestamp),
+    node: normalizeTimestamp(project),
   }
 }
 
@@ -67,7 +69,7 @@ export function getClientProjectsByClient(client, { first, after }) {
       .sortBy('timestamp')
       .thru(filterProjectsAfter(after))
       .thru(sliceProjects({ first }))
-      .map(getClientProjectEdge)
+      .map(makeClientProjectEdge)
       .value();
   let pageInfo = _
       .chain(clientProjectMocks)
@@ -76,7 +78,7 @@ export function getClientProjectsByClient(client, { first, after }) {
       .thru(makePageInfo(edges))
       .value();
 
-  let connection = getClientProjectsConnection(edges, pageInfo);
+  let connection = makeConnection(edges, pageInfo);
   return Promise.resolve(connection);
 }
 
@@ -95,7 +97,7 @@ export function addClientProjectToClient(clientID, input) {
   }
   clientProjectMocks.push(project);
 
-  let edge = getClientProjectEdge(project);
+  let edge = makeClientProjectEdge(project);
   let payload = {
     payloadEdge: edge
   }

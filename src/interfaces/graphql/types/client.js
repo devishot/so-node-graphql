@@ -1,6 +1,6 @@
 import * as graphql from 'graphql';
 
-import { nodeInterface } from './';
+import { connectionInterface, edgeInterface, pageInfo, nodeInterface } from './';
 import { getClientProjectsByClient } from '../resolvers';
 
 export const clientType = new graphql.GraphQLObjectType({
@@ -25,4 +25,22 @@ export const clientType = new graphql.GraphQLObjectType({
     },
   },
   interfaces: [nodeInterface],
+});
+
+export const clientEdgeType = new graphql.GraphQLObjectType({
+  name: 'ClientEdge',
+  fields: {
+    cursor:   { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+    node:     { type: graphql.GraphQLNonNull(clientType) },
+  },
+  interfaces: [edgeInterface],
+});
+
+export const clientConnectionType = new graphql.GraphQLObjectType({
+  name: 'ClientConnection',
+  fields: {
+    edges:    { type: graphql.GraphQLNonNull(new graphql.GraphQLList(clientEdgeType)) },
+    pageInfo: { type: graphql.GraphQLNonNull(pageInfo) },
+  },
+  interfaces: [connectionInterface],
 });
