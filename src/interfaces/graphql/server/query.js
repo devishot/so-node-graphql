@@ -1,19 +1,24 @@
 import * as graphql from 'graphql';
 
 import {
-  getClientByID, 
+  getClientByID,
   getClientProjectByID,
   getClientConnection,
 } from '../resolvers';
+import {
+  clientType,
+  clientConnectionType,
+  clientProjectType
+} from '../types';
 
 export const queryType = new graphql.GraphQLObjectType({
   name: 'Query',
   fields: {
     clients: {
-      type: require('../types/client').clientConnectionType,
+      type: clientConnectionType,
       args: {
         first:  { type: graphql.GraphQLInt }, // Forward pagination arguments
-        after:  { type: graphql.GraphQLString }, 
+        after:  { type: graphql.GraphQLString },
         last:   { type: graphql.GraphQLInt },  // Backward pagination arguments
         before: { type: graphql.GraphQLString },
       },
@@ -22,7 +27,7 @@ export const queryType = new graphql.GraphQLObjectType({
       }
     },
     client: {
-      type: require('../types/client').clientType,
+      type: clientType,
       args: {
         id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) }
       },
@@ -30,7 +35,7 @@ export const queryType = new graphql.GraphQLObjectType({
       resolve: (_, { id }) => getClientByID(id)
     },
     project: {
-      type: require('../types/client_project').clientProjectType,
+      type: clientProjectType,
       args: {
         id: { type: graphql.GraphQLNonNull(graphql.GraphQLID) }
       },

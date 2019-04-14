@@ -1,43 +1,94 @@
-import { 
+import {
   normalizeTimestamp,
   getEdgeCursorFromTimestamp
- } from './';
+} from './';
+import {ClientServiceConnection} from 'GrpcAPI';
 
-let clientMocks = [
-  {
-    id: "c468d42e-e2d6-4f9a-9974-ba775a882514",
-    timestamp: 1534596386637,
-    firstName: "FirstName",
-    lastName: "LastName",
-    companyName: ""
-  },
-  {
-    id: "00c3c715-9c9f-49be-b336-6d661f2bf561",
-    timestamp: 1518957975228,
-    firstName: "Donald",
-    lastName: "Trump",
-    companyName: "The Trump Organization"
-  },
-]
-
-export function getClientByClientProject(project) {
-  return Promise.resolve(normalizeTimestamp(clientMocks[0]));
+function makeClientEdge(client) {
+  return {
+    cursor: getEdgeCursorFromTimestamp(client.timestamp),
+    node: normalizeTimestamp(client),
+  }
 }
 
 export function getClientByID(id) {
-  const client = clientMocks.filter( client => client.id == id )[0];
+  const conn = ClientServiceConnection.pool();
 
-  return Promise.resolve(normalizeTimestamp(client));
+  return new Promise((resolve, reject) => {
+    const req = {
+      id
+    };
+
+    conn.getClient(req, (err, client) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(normalizeTimestamp(client));
+      }
+    });
+  });
 }
 
-export function getClientConnection({ first, after, last, before }) {
-  const conn = {
-    edges: [],
-    pageInfo: {
-      hasNextPage: false,
-      startCursor: getEdgeCursorFromTimestamp(Date.now())
-    },
-  };
+export function deleteClientByID(id) {
+  const conn = ClientServiceConnection.pool();
 
-  return Promise.resolve(conn);
+  return new Promise((resolve, reject) => {
+    const req = {
+      id
+    };
+
+    conn.deleteClient(req, (err, client) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(normalizeTimestamp(client));
+      }
+    });
+  });
+}
+
+export function getClientConnection({first, after, last, before}) {
+  const conn = ClientServiceConnection.pool();
+
+  return new Promise((resolve, reject) => {
+    const req = {
+      args: {
+        first,
+        after,
+        last,
+        before
+      }
+    };
+
+    conn.getClientConnection(req, (err, page) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(page);
+      }
+    });
+  });
+}
+
+export function addClient(input) {
+  const conn = ClientServiceConnection.pool();
+
+  return new Promise((resolve, reject) => {
+    const req = {
+      data: input,
+    };
+
+    conn.createClient(req, (err, client) => {
+      if (err) {
+        reject(err);
+      } else {
+        const edge = makeClientEdge(client),
+              payload = {
+                payloadEdge: edge
+              };
+
+        resolve(payload);
+      }
+    });
+  });
 }

@@ -1,7 +1,13 @@
 import * as graphql from 'graphql';
 
-import { connectionInterface, edgeInterface, pageInfo, nodeInterface } from './';
-import { getClientProjectsByClient } from '../resolvers';
+import {
+  connectionInterface,
+  edgeInterface,
+  pageInfo,
+  nodeInterface
+} from './';
+import {clientProjectConnectionType} from './client_project';
+import {getClientProjectsByClientID} from '../resolvers';
 
 export const clientType = new graphql.GraphQLObjectType({
   name: 'Client',
@@ -12,15 +18,16 @@ export const clientType = new graphql.GraphQLObjectType({
     lastName: { type: graphql.GraphQLString },
     companyName: { type: graphql.GraphQLString },
     projects: {
-      type: graphql.GraphQLNonNull(require('./client_project').clientProjectConnectionType),
+      type: graphql.GraphQLNonNull(clientProjectConnectionType),
       args: {
         first:  { type: graphql.GraphQLInt }, // Forward pagination arguments
-        after:  { type: graphql.GraphQLString }, 
+        after:  { type: graphql.GraphQLString },
         last:   { type: graphql.GraphQLInt },  // Backward pagination arguments
         before: { type: graphql.GraphQLString },
       },
+      // resolver receive parameters: (client, args, context, info)
       resolve: (client, argValues) => {
-        return getClientProjectsByClient(client, argValues);
+        return getClientProjectsByClientID(client, argValues);
       }
     },
   },
@@ -43,4 +50,21 @@ export const clientConnectionType = new graphql.GraphQLObjectType({
     pageInfo: { type: graphql.GraphQLNonNull(pageInfo) },
   },
   interfaces: [connectionInterface],
+});
+
+// Mutation input and output types
+export const addClientInput = new graphql.GraphQLInputObjectType({
+  name: 'AddClientInput',
+  fields: {
+    firstName: { type: graphql.GraphQLString },
+    lastName: { type: graphql.GraphQLString },
+    companyName: { type: graphql.GraphQLString },
+  },
+});
+
+export const addClientPayload = new graphql.GraphQLObjectType({
+  name: 'AddClientPayload',
+  fields: {
+    payloadEdge: { type: clientEdgeType },
+  },
 });
