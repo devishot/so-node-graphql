@@ -1,0 +1,9 @@
+{
+  "development": {
+    "node_port": 8080,
+    "so_client_project_addr": "localhost:9001"
+  },
+  "production": {
+    "node_port": 80
+  }
+}

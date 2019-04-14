@@ -7,11 +7,21 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js'
   },
+  resolve: {
+    alias: {
+      Config:  path.resolve(__dirname, 'config/config.js'),
+      grpcAPI: path.resolve(__dirname, 'src/interfaces/grpc/api'),
+    }
+  },
   mode: 'development',
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   watch: false,
   watchOptions: {
     ignored: /node_modules/
   },
-  target: 'node',
-  externals: [nodeExternals()]
+  externals: [nodeExternals()],
 };
