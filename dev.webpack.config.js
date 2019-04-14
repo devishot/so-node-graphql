@@ -10,7 +10,7 @@ module.exports = {
   resolve: {
     alias: {
       Config:  path.resolve(__dirname, 'config/config.js'),
-      grpcAPI: path.resolve(__dirname, 'src/interfaces/grpc/api'),
+      GrpcAPI: path.resolve(__dirname, 'src/interfaces/grpc/api'),
     }
   },
   mode: 'development',
